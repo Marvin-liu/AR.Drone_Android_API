@@ -1,2 +1,2 @@
-A.R.Drone_Android_API
+AR.Drone_Android_API
 =====================
