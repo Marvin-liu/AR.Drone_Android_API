@@ -1,20 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.parrot"
-          android:versionCode="1"
-          android:versionName="1.0">
+          package="com.parrot.freeflight"
+          android:versionCode="20000"
+          android:versionName="2.0-SDK">
 
-    <uses-sdk android:minSdkVersion="14"/>
+    <uses-sdk
+            android:minSdkVersion="14"
+            android:targetSdkVersion="16"/>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <uses-feature
+            android:name="android.hardware.faketouch.multitouch.distinct"
+            android:required="false"/>
+    <uses-feature
+            android:name="android.hardware.multitouch.distinct"
+            android:required="false"/>
+    <uses-feature
+            android:name="android.hardware.wifi"
+            android:required="true"/>
+
     <application
+            android:name=".DemoApplication"
+            android:allowClearUserData="true"
             android:label="@string/app_name"
-            android:icon="@drawable/ic_launcher">
+            android:icon="@drawable/ic_launcher"
+            android:theme="@style/FreeFlightTheme">
         <activity
-                android:name="MyActivity"
-                android:label="@string/app_name">
-            <intent-filter>
+                android:name=".activities.DashboardActivity"
+                android:finishOnTaskLaunch="true"
+                android:hardwareAccelerated="false"
+                android:launchMode="singleTask"
+                android:screenOrientation="landscape"
+                android:theme="@style/FreeFlightTheme.Dashboard">
+        <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+                android:name=".activities.ConnectActivity"
+                android:finishOnTaskLaunch="true"
+                android:noHistory="true"
+                android:screenOrientation="landscape"
+                android:excludeFromRecents="true"
+                android:stateNotNeeded="true"/>
+        <activity
+                android:name=".activities.ControlDroneActivity"
+                android:configChanges="touchscreen|keyboardHidden|orientation"
+                android:finishOnTaskLaunch="true"
+                android:hardwareAccelerated="true"
+                android:launchMode="singleInstance"
+                android:screenOrientation="landscape"
+                android:theme="@style/FreeFlightTheme.HudScreen"/>
+
+        <service android:name=".service.DroneControlService"/>
     </application>
 </manifest>
